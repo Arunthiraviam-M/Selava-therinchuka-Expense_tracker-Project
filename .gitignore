@@ -1,0 +1,17 @@
+# Environment variables / secrets
+backend/.env
+
+# Node.js dependencies
+backend/node_modules/
+
+# Logs
+backend/logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/

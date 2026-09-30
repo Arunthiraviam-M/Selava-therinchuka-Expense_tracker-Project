@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selava Therinchuka 💰 – Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="8" fill="#6C63FF"/>
+          <path d="M8 18L13 10L17 15L20 11" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="20" cy="11" r="2" fill="#A8FF78"/>
+        </svg>
+      </div>
+      <span class="brand-name">Selava Therinchuka 💰</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-section="overview">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="1" y="11" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="11" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span>Overview</span>
+      </a>
+      <a href="#" class="nav-item" data-section="expenses">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 4h14M2 9h10M2 14h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Expenses</span>
+      </a>
+      <a href="#" class="nav-item" data-section="analytics">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 14V8l4-3 4 2 4-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Analytics</span>
+      </a>
+      <a href="#" class="nav-item" data-section="budget">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 5v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Budget</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="sidebar-bottom">
+    <div class="user-profile" id="user-profile-sidebar">
+      <div class="avatar" id="sidebar-avatar">A</div>
+      <div class="user-info">
+        <span class="user-name" id="sidebar-name">Loading…</span>
+        <span class="user-email" id="sidebar-email">…</span>
+      </div>
+    </div>
+    <button class="logout-btn" id="logout-btn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M11 11l3-3-3-3M14 8H6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Log out</span>
+    </button>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<main class="main">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="greeting-block">
+        <h2 class="greeting" id="greeting-text">Good morning</h2>
+        <span class="greeting-sub" id="greeting-sub">Let's see where your money went this month.</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <button class="btn-add-expense" onclick="openModal()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Add Expense
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ===== OVERVIEW SECTION ===== -->
+    <section id="section-overview" class="section active">
+
+      <!-- STAT CARDS -->
+      <div class="stat-cards">
+        <div class="stat-card primary-card">
+          <div class="stat-label">Total This Month</div>
+          <div class="stat-value" id="stat-total">₹0</div>
+          <div class="stat-trend" id="stat-trend">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 10l4 4 8-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="stat-label">Transactions</div>
+          <div class="stat-value" id="stat-count">0</div>
+          <div class="stat-sub">this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v9M5 7l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="stat-label">Highest Spend</div>
+          <div class="stat-value" id="stat-max">₹0</div>
+          <div class="stat-sub" id="stat-max-cat">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 5v4l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="stat-label">Daily Average</div>
+          <div class="stat-value" id="stat-avg">₹0</div>
+          <div class="stat-sub">per day</div>
+        </div>
+      </div>
+
+      <!-- MAIN GRID -->
+      <div class="dashboard-grid">
+        <div class="panel expenses-panel">
+          <div class="panel-header">
+            <h3>Recent Expenses</h3>
+            <button class="text-btn" onclick="showSection('expenses')">View all</button>
+          </div>
+          <div id="recent-list" class="expense-list">
+            <div class="empty-state">
+              <div class="empty-icon">📭</div>
+              <p>No expenses yet this month</p>
+              <button class="btn-add-inline" onclick="openModal()">Add your first expense</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel calendar-panel">
+          <div class="panel-header">
+            <div class="cal-nav">
+              <button class="cal-nav-btn" id="prev-month" onclick="changeMonth(-1)">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <h3 id="cal-month-label">June 2025</h3>
+              <button class="cal-nav-btn" id="next-month" onclick="changeMonth(1)">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="calendar" id="calendar-grid"></div>
+          <div class="day-drawer" id="day-drawer">
+            <div class="day-drawer-header">
+              <span id="day-drawer-title">No date selected</span>
+              <button class="close-drawer" onclick="closeDrawer()">×</button>
+            </div>
+            <div id="day-drawer-list" class="day-drawer-list">
+              <div class="empty-state small"><p>No expenses on this day</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHARTS -->
+      <div class="charts-grid">
+        <div class="panel chart-panel">
+          <div class="panel-header"><h3>Spending by Category</h3></div>
+          <div class="chart-container">
+            <canvas id="category-chart"></canvas>
+            <div class="chart-legend" id="category-legend"></div>
+          </div>
+        </div>
+        <div class="panel chart-panel">
+          <div class="panel-header"><h3>Daily Spending Trend</h3></div>
+          <canvas id="trend-chart" style="max-height:200px"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EXPENSES SECTION ===== -->
+    <section id="section-expenses" class="section">
+      <div class="section-header-row">
+        <h2>All Expenses</h2>
+        <div class="filter-bar">
+          <select id="filter-category" onchange="renderExpenseTable()">
+            <option value="">All Categories</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Health">Health</option>
+            <option value="Education">Education</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Other">Other</option>
+          </select>
+          <select id="filter-month" onchange="renderExpenseTable()"></select>
+          <button class="btn-add-expense" onclick="openModal()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Add
+          </button>
+        </div>
+      </div>
+      <div class="panel">
+        <table class="expense-table" id="expense-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="expense-table-body">
+            <tr><td colspan="5" class="empty-row">No expenses found.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== ANALYTICS SECTION ===== -->
+    <section id="section-analytics" class="section">
+      <h2>Analytics</h2>
+      <div class="charts-grid full-width">
+        <div class="panel chart-panel">
+          <div class="panel-header"><h3>Monthly Spend Overview</h3></div>
+          <canvas id="monthly-bar-chart" style="max-height:240px"></canvas>
+        </div>
+        <div class="panel chart-panel">
+          <div class="panel-header"><h3>Category Breakdown</h3></div>
+          <div class="chart-container">
+            <canvas id="analytics-donut"></canvas>
+            <div class="chart-legend" id="analytics-legend"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BUDGET SECTION ===== -->
+    <section id="section-budget" class="section">
+      <h2>Budget Tracker</h2>
+      <div class="budget-grid" id="budget-grid"></div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ===== ADD/EDIT EXPENSE MODAL ===== -->
+<div class="modal-overlay hidden" id="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Add Expense</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <form id="expense-form" novalidate>
+      <input type="hidden" id="edit-id" value="" />
+      <div class="form-row">
+        <div class="field-group">
+          <label>Amount (₹) *</label>
+          <div class="input-wrap">
+            <span class="input-prefix">₹</span>
+            <input type="number" id="exp-amount" placeholder="0.00" step="0.01" min="0.01" required />
+          </div>
+          <span class="field-error" id="exp-amount-error"></span>
+        </div>
+        <div class="field-group">
+          <label>Date *</label>
+          <div class="input-wrap">
+            <input type="date" id="exp-date" required />
+          </div>
+          <span class="field-error" id="exp-date-error"></span>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Description *</label>
+        <div class="input-wrap">
+          <input type="text" id="exp-desc" placeholder="e.g. Lunch at Saravana Bhavan" required />
+        </div>
+        <span class="field-error" id="exp-desc-error"></span>
+      </div>
+      <div class="form-row">
+        <div class="field-group">
+          <label>Category *</label>
+          <select id="exp-category" required>
+            <option value="">Select category</option>
+            <option value="Food">🍕 Food</option>
+            <option value="Transport">🚌 Transport</option>
+            <option value="Shopping">🛍 Shopping</option>
+            <option value="Entertainment">🎬 Entertainment</option>
+            <option value="Health">💊 Health</option>
+            <option value="Education">📚 Education</option>
+            <option value="Utilities">⚡ Utilities</option>
+            <option value="Other">📦 Other</option>
+          </select>
+          <span class="field-error" id="exp-category-error"></span>
+        </div>
+        <div class="field-group">
+          <label>Payment Mode</label>
+          <select id="exp-mode">
+            <option value="Cash">💵 Cash</option>
+            <option value="UPI">📱 UPI</option>
+            <option value="Card">💳 Card</option>
+            <option value="Net Banking">🏦 Net Banking</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Note (optional)</label>
+        <textarea id="exp-note" placeholder="Any additional notes…" rows="2"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary" id="modal-submit-btn">
+          <span class="btn-text">Save Expense</span>
+          <div class="btn-spinner hidden"></div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== DELETE CONFIRM MODAL ===== -->
+<div class="modal-overlay hidden" id="delete-overlay" onclick="closeDeleteOnOverlay(event)">
+  <div class="modal delete-modal">
+    <div class="delete-icon">🗑️</div>
+    <h3>Delete Expense?</h3>
+    <p>This action cannot be undone. The expense will be permanently removed.</p>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn-danger" id="confirm-delete-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast hidden" id="toast"></div>
+
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
